@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <script src="js_practice.js"></script>
+
+  <label for="qtype" > Select the question type: </label>
+  <select name="qtype" id="qtype" onchange="changeSelectOption()">
+    <option></option>
+    <option value="add" >Addition</option>
+    <option value="multi">Multiplication</option>
+  </select>
+  <br>
+  <br>
+
+  <label for="qlevel"> Select the question level: </label>
+  <select name="qlevel" id="qlevel">
+  <!-- option will be generated from js-->
+  </select>
+  <br>
+  <br>
+
+  <label for="difficulty"> Difficulty: </label>
+  <!-- option will be generated from js-->
+  <select name="difficulty" id="difficulty">
+  </select>
+
+
+  <br>
+  <br>
+
+  <label for="numofq">Number of questions: </label>
+  <input id="numofq" type="number" max = "120" min = "0" placeholder="0 - 120   (only integer number)">
+
+  <br>
+  <br>
+<button id="generate">Generate!</button>
+<div id="questions"></div>
+</body>
+
+<script>
+
+// Attach click event to the button
+</script>
+<script src="js_practice.js"></script>
+
+</html>

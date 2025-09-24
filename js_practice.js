@@ -98,7 +98,6 @@ function quesGen(profile) {
     }
 
 
-
     switch(ran) {
         case 0:
             ques = num[0] + " + " + num[1] + " = " + "____";
@@ -255,22 +254,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         //Clear previous content
         questionsDiv.innerHTML = "";
-
-
-        //debuging
-        //questionsDiv.innerHTML += quesGen_profile.type + "<br>";
-        //questionsDiv.innerHTML += quesGen_profile.level_id + "<br>";
-        //questionsDiv.innerHTML += quesGen_profile.difficulty + "<br>";
-
-        /*
-        if (isNaN(quesGen_profile.num_of_ques)) {
-            questionsDiv.innerHTML = "⚠️ Please enter a number!";
-            return;
-        } else {
-            questionsDiv.innerHTML += quesGen_profile.num_of_ques; 
-            questionsDiv.innerHTML += quesGen_profile.level_id; 
-        }
-        */
         
         for ( let i = 0; i < quesGen_profile.num_of_ques; i++){
             questionsDiv.innerHTML += "<br><br>" + (i+1) + ". " + quesGen(quesGen_profile);

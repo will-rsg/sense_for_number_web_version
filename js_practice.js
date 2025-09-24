@@ -1,21 +1,21 @@
 
-function random_integer(min, max) {
+function randomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function ten_combination(num){
+function tenCombination(num){
     num[2] = 10;
-    num[1] = random_integer(1,9);
+    num[1] = randomInteger(1,9);
     num[0] = num[2] - num[1];
 
     return num;
 }
 
-function one_digit_one_digit_combination(num) {
-    num[2] = random_integer(10,18);
+function oneDigitOneDigitCombination(num) {
+    num[2] = randomInteger(10,18);
     
     do {
-        num[1] = random_integer(1,9);
+        num[1] = randomInteger(1,9);
     }
     while (num[2] - num[1] >= 10);
 
@@ -24,27 +24,27 @@ function one_digit_one_digit_combination(num) {
     return num;
 }
 
-function two_digit_one_digit_combination(num) {
-    let ten_digit = random_integer(1,8) * 10;
+function twoDigitOneDigitCombination(num) {
+    let ten_digit = randomInteger(1,8) * 10;
 
-    one_digit_one_digit_combination(num);
-    num[random_integer(0,1)] += ten_digit;
+    oneDigitOneDigitCombination(num);
+    num[randomInteger(0,1)] += ten_digit;
     num[2] += ten_digit;
 
     return num;
 }
 
-function two_digit_combination_lv1(num) {
-    num[2] = random_integer(22,99);
-    num[1] = random_integer(num[2] - 11, 11);
+function twoDigitCombinationLv1(num) {
+    num[2] = randomInteger(22,99);
+    num[1] = randomInteger(num[2] - 11, 11);
     num[0] = num[2] - num[1];
 
     return num;
 }
 
 function two_digit_combination_lv2(num) {
-    num[0] = random_integer(11,99);
-    num[1] = random_integer(11,99);
+    num[0] = randomInteger(11,99);
+    num[1] = randomInteger(11,99);
     num[2] = num[0] + num[1];
 
     return num;
@@ -53,11 +53,35 @@ function two_digit_combination_lv2(num) {
 function two_digit_combination_lv3(num) {
     let ten_digit = [0,0,0];
     
-    one_digit_one_digit_combination(ten_digit);
-    one_digit_one_digit_combination(num);
+    oneDigitOneDigitCombination(ten_digit);
+    oneDigitOneDigitCombination(num);
     num[0] += (ten_digit[0] * 10);
     num[1] += (ten_digit[1] * 10);
     num[2] = num[0] + num[1];
+
+    return num;
+}
+
+function simpleMultipliation(num)
+{
+    num[0] = randomInteger(9, 2);
+    num[1] = randomInteger(9, 2);
+    num[2] = num[0] * num[1];
+
+    return num;
+}
+
+function twoToOneMultipliation(num)
+{
+    num[0] = randomInteger(9, 2);
+    num[1] = randomInteger(9, 2);
+
+    if(num[0] >= num[1] )
+        num[1] = num[1] * 10 + randomInteger(9, 2);
+    else   
+        num[0] = num[0] * 10 + randomInteger(9, 2);
+
+    num[2] = num[0] * num[1];
 
     return num;
 }
@@ -92,11 +116,14 @@ function quesGen(profile) {
     let ran;
 
     if (quesGen_profile.type === "add"){
-        ran = (diffi === "easy") ? 0 : random_integer(0,2);
+        if (quesGen_profile.level_id === "10"){
+            ran = randomInteger(1,2);
+        } else {
+            ran = (diffi === "easy") ? 0 : randomInteger(0,2);
+        }
     } else if (quesGen_profile.type === "multi"){
-        ran = (diffi === "easy") ? 3 : random_integer(3,5);
+        ran = (diffi === "easy") ? 3 : randomInteger(3,5);
     }
-
 
     switch(ran) {
         case 0:
@@ -131,31 +158,24 @@ function quesSelector(profile) {
     if (profile.type === "add") {
         switch(profile.level_id){
             case "10":
-                return ten_combination(num);
-                break;
+                return tenCombination(num);
             case "1to1":
-                return one_digit_one_digit_combination(num);
-                break;
+                return oneDigitOneDigitCombination(num);
             case "2to1":
-                return two_digit_one_digit_combination(num)
-                break;
+                return twoDigitOneDigitCombination(num)
             case "2to2":
-                return two_digit_combination_lv1(num);
-                break;
+                return twoDigitCombinationLv1(num);
             default:
                 break;
         }
     } else if (profile.type === "multi") {
                 switch(profile.level_id){
             case "1to1":
-                return one_digit_one_digit_combination(num);
-                break;
+                return simpleMultipliation(num);
             case "2to1":
-                return two_digit_one_digit_combination(num)
-                break;
+                return twoToOneMultipliation(num)
             case "3to1":
-                return two_digit_combination_lv1(num);
-                break;
+                return twoDigitCombinationLv1(num);
             default:
                 break;
         }
@@ -185,7 +205,6 @@ const q_profile = [
         "level_id" : ["1to1", "2to1", "3to1"],
         "difficulty": ["easy","hard"]
     }
-    
 ]
 
 function changeSelectOption(){
@@ -262,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //https://will-rsg.github.io/sense_for_number_web_version/
-
+//https://github.com/will-rsg/sense_for_number_web_version/deployments/
 
 
 

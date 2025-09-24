@@ -85,10 +85,21 @@ function equation_print(num, type) {
     }
 }
 
-function quesGen(num, type) {
+function quesGen(profile) {
     let ques = "";
+    let num = quesSelector(quesGen_profile)
+    let diffi = quesGen_profile.difficulty;
+    let ran;
 
-    switch(type) {
+    if (quesGen_profile.type === "add"){
+        ran = (diffi === "easy") ? 0 : random_integer(0,2);
+    } else if (quesGen_profile.type === "multi"){
+        ran = (diffi === "easy") ? 3 : random_integer(3,5);
+    }
+
+
+
+    switch(ran) {
         case 0:
             ques = num[0] + " + " + num[1] + " = " + "____";
             break;
@@ -99,10 +110,13 @@ function quesGen(num, type) {
             ques = num[0] + " + " + "____" + " = " +num[2];
             break;
         case 3:
-            ques = num[2] + " - " + num[1] + " = " + "____";
+            ques = num[0] + " x " + num[1] + " = " + "____";
             break;
         case 4:
-            ques = num[2] + " - " + "____" + " = " + num[0] ;
+            ques = num[0] + " x " + "____" + " = " + num[2] ;
+            break;
+        case 5:
+            ques = "____" + " x " + num[1] + " = " + num[2] ;
             break;
         case 99:
             ques = num[0] + " + " + num[1] + " = " + num[2];
@@ -174,8 +188,6 @@ const q_profile = [
     }
     
 ]
-
-
 
 function changeSelectOption(){
     let qtype = document.getElementById("qtype");
@@ -261,35 +273,12 @@ document.addEventListener("DOMContentLoaded", function() {
         */
         
         for ( let i = 0; i < quesGen_profile.num_of_ques; i++){
-            questionsDiv.innerHTML += "<br><br>" + (i+1) + ". " + quesGen(quesSelector(quesGen_profile), 99);
+            questionsDiv.innerHTML += "<br><br>" + (i+1) + ". " + quesGen(quesGen_profile);
         }
     });
 });
 
-
-
-for (let i = 0; i < 6; i++)
-{
-    digit = [1,2,3];
-    //ten_combinaiton(equ);
-    //one_digit_one_digit_combination(equ);
-    //two_digit_combination_lv3(equ);
-
-    // printing question
-    //equation_print(equ, random_integer(1,4));
-    //let ten_digit = [0,0,0];
-    
-    //one_digit_one_digit_combination(ten_digit);
-    //one_digit_one_digit_combination[equ];
-    //equ[0] += (ten_digit[0] * 10);
-    //equ[1] += (ten_digit[1] * 10);
-    //equ[2] = equ[0] + equ[1];
-
-    // printing answer
-    quesGen(digit, 99);
-    //equation_print(equ, 99);
-    //console.log();
-}
+//https://will-rsg.github.io/sense_for_number_web_version/
 
 
 
